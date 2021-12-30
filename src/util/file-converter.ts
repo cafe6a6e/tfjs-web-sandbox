@@ -7,5 +7,5 @@ export function file2imageElement(file: File): HTMLImageElement | UnsupportedFil
 
 export function file2imageData(file: File): ImageData | UnsupportedFileTypeError {
   // TODO: implement
-  return new ImageData(0,0);
+  return new ImageData(1, 1);
 }

@@ -3,7 +3,16 @@ import { ICombinedDetector, ICombinedDetectorOutput } from "../ICombinedDetector
 
 @injectable()
 export class CombinedDetector implements ICombinedDetector {
-  detctFromImage(input: HTMLImageElement): Promise<ICombinedDetectorOutput> {
-    throw new Error("Method not implemented.");
+  async load(): Promise<boolean> {
+    console.warn("Method not implemented.");
+    return true;
+  }
+
+  async detctFromImage(input: ImageData): Promise<ICombinedDetectorOutput> {
+    console.warn("Method not implemented.");
+    return {
+      pose: 'not implemented',
+      ssd: 'not implemented',
+    };
   }
 }

@@ -4,5 +4,6 @@ export interface ICombinedDetectorOutput {
 }
 
 export interface ICombinedDetector {
-  detctFromImage(input: HTMLImageElement): Promise<ICombinedDetectorOutput>
+  load(): Promise<boolean>
+  detctFromImage(input: ImageData): Promise<ICombinedDetectorOutput>
 }
