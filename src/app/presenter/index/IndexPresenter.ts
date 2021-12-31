@@ -1,6 +1,5 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "../../../config/dependency/types";
-import { file2imageData, file2imageElement, UnsupportedFileTypeError } from "../../../util/file-converter";
 import { ICombinedDetector } from "../../model/combined-detector/ICombinedDetector";
 import { IIndexView } from "../../view/index/IIndexView";
 
@@ -13,10 +12,13 @@ export class IndexPresenter {
     this.indexView.setPresenter(this);
   }
 
-  async processFile(file: File): Promise<void> {
-    const imageData = file2imageData(file);
+  async initialize(): Promise<void> {
+    this.indexView.showLoading(true);
+    await this.combinedDetector.load();
+    this.indexView.showLoading(false);
+  }
 
-    if (imageData instanceof UnsupportedFileTypeError) return;
+  async processFile(imageData: ImageData): Promise<void> {
 
     this.indexView.showLoading(true);
 

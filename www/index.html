@@ -3,11 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>tfjs-web-sandbox</title>
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
+  <!-- loading shield-->
+  <div id="tws-loader">
+    <div class="loading"></div>
+    <p>Loading...</p>
+  </div>
+
   <h3>Input</h3>
-  <input type="file" name="Upload image" id="tws-file">
+  <input type="file" name="Upload image" id="tws-file" />
+  <img height="320" id="tws-image" />
   <hr>
+
   <h3>Output</h3>
   <h4>tfjs/posenet</h4>
   <div id="tws-output-pose"></div>

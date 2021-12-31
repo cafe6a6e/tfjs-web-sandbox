@@ -6,12 +6,11 @@ import { IndexPresenter } from "./presenter/index/IndexPresenter";
 @injectable()
 export class Main {
   constructor(
-    @inject(TYPES.CombinedDetector) private combinedDetector: ICombinedDetector,
     @inject(TYPES.IndexPresenter) private indexPresenter: IndexPresenter
   ) {}
 
   async setup(): Promise<boolean> {
-    await this.combinedDetector.load();
+    await this.indexPresenter.initialize();
     return true;
   }
 }

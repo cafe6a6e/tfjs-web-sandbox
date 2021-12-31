@@ -5,7 +5,12 @@ export function file2imageElement(file: File): HTMLImageElement | UnsupportedFil
   return new HTMLImageElement();
 }
 
-export function file2imageData(file: File): ImageData | UnsupportedFileTypeError {
-  // TODO: implement
-  return new ImageData(1, 1);
+export function dom2ImageData(imageElement: HTMLImageElement): ImageData {
+  const canvas = document.createElement("canvas");
+  canvas.width = imageElement.naturalWidth;
+  canvas.height = imageElement.naturalHeight;
+  const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+  ctx.drawImage(imageElement, 0, 0, canvas.width, canvas.height);
+
+  return ctx.getImageData(0, 0, canvas.width, canvas.height);
 }
