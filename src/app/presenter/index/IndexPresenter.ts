@@ -19,13 +19,9 @@ export class IndexPresenter {
   }
 
   async processFile(imageData: ImageData): Promise<void> {
-
     this.indexView.showLoading(true);
-
     const res = await this.imageClassifier.classify(imageData);
-
-    this.indexView.updateResult(`id: ${res.classId}, score: ${res.score})`);
-    
+    this.indexView.updateResult(`class id: ${res.classId}, score: ${res.score})`);
     this.indexView.showLoading(false);
   }
 }
