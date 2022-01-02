@@ -5,8 +5,8 @@ import { IIndexView } from "../../app/view/index/IIndexView";
 import { IndexView } from "../../app/view/index/impl/IndexView";
 import { IndexPresenter } from "../../app/presenter/index/IndexPresenter";
 import { Main } from "../../app/Main";
-import { IImageClassifier } from "../../app/model/combined-detector/IImageClassifier";
-import { ImageClassifier } from "../../app/model/combined-detector/impl/ImageClassifier";
+import { IImageClassifier } from "../../app/model/image-classifier/IImageClassifier";
+import { ImageClassifier } from "../../app/model/image-classifier/impl/ImageClassifier";
 
 const container = new Container({ defaultScope: 'Singleton' });
 

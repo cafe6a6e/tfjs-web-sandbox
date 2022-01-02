@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "../../../config/dependency/types";
-import { IImageClassifier } from "../../model/combined-detector/IImageClassifier";
+import { IImageClassifier } from "../../model/image-classifier/IImageClassifier";
 import { IIndexView } from "../../view/index/IIndexView";
 
 @injectable()
