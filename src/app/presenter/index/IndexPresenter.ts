@@ -1,12 +1,12 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "../../../config/dependency/types";
-import { ICombinedDetector } from "../../model/combined-detector/ICombinedDetector";
+import { IImageClassifier } from "../../model/combined-detector/IImageClassifier";
 import { IIndexView } from "../../view/index/IIndexView";
 
 @injectable()
 export class IndexPresenter {
   constructor(
-    @inject(TYPES.CombinedDetector) private combinedDetector: ICombinedDetector,
+    @inject(TYPES.ImageClassifier) private imageClassifier: IImageClassifier,
     @inject(TYPES.IndexView) private indexView: IIndexView,
   ) {
     this.indexView.setPresenter(this);
@@ -14,7 +14,7 @@ export class IndexPresenter {
 
   async initialize(): Promise<void> {
     this.indexView.showLoading(true);
-    await this.combinedDetector.load();
+    await this.imageClassifier.load();
     this.indexView.showLoading(false);
   }
 
@@ -22,10 +22,9 @@ export class IndexPresenter {
 
     this.indexView.showLoading(true);
 
-    const res = await this.combinedDetector.detctFromImage(imageData);
+    const res = await this.imageClassifier.classify(imageData);
 
-    this.indexView.updatePoseResult(res.pose);
-    this.indexView.updateSsdResult(res.ssd);
+    this.indexView.updateResult(`id: ${res.classId}, score: ${res.score})`);
     
     this.indexView.showLoading(false);
   }

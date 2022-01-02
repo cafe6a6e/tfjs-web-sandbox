@@ -1,6 +1,6 @@
 const TYPES = {
   Main: Symbol.for('Main'),
-  CombinedDetector: Symbol.for('CombinedDetector'),
+  ImageClassifier: Symbol.for('ImageClassifier'),
   IndexView: Symbol.for('IndexView'),
   IndexPresenter: Symbol.for('IndexPresenter'),
 }

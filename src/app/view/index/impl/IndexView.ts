@@ -6,8 +6,7 @@ import { IIndexView } from "../IIndexView";
 const LOADING_ELEMENT_ID = "tws-loader";
 const INPUT_IMAGE_FILE_ELEMENT_ID = "tws-file";
 const INPUT_IMAGE_ELEMENT_ID = "tws-image";
-const POSE_RESULT_DIV_ELEMENT_ID = "tws-output-pose";
-const SSD_RESULT_DIV_ELEMENT_ID = "tws-output-ssd";
+const RESULT_DIV_ELEMENT_ID = "tws-result";
 
 @injectable()
 export class IndexView implements IIndexView {
@@ -17,9 +16,7 @@ export class IndexView implements IIndexView {
   private loadingElement!: HTMLDivElement;
   private fileInputElement!: HTMLInputElement;
   private inputImageElement!: HTMLImageElement;
-  private poseResultDivElement!: HTMLDivElement;
-  private ssdResultDivElement!: HTMLDivElement;
-  // private  // TODO:...
+  private resultDivElement!: HTMLDivElement;
 
   setPresenter(presenter: IndexPresenter): void {
     this.presenter = presenter;
@@ -43,8 +40,7 @@ export class IndexView implements IIndexView {
     });
 
     // result div elements
-    this.poseResultDivElement = document.getElementById(POSE_RESULT_DIV_ELEMENT_ID) as HTMLDivElement;
-    this.ssdResultDivElement = document.getElementById(SSD_RESULT_DIV_ELEMENT_ID) as HTMLDivElement;
+    this.resultDivElement = document.getElementById(RESULT_DIV_ELEMENT_ID) as HTMLDivElement;
 
     // loading element
     this.loadingElement = document.getElementById(LOADING_ELEMENT_ID) as HTMLDivElement;
@@ -83,10 +79,7 @@ export class IndexView implements IIndexView {
     }
   }
 
-  updatePoseResult(result: string): void {
-    this.poseResultDivElement.innerHTML = result;
-  }
-  updateSsdResult(result: string): void {
-    this.ssdResultDivElement.innerHTML = result;
+  updateResult(result: string): void {
+    this.resultDivElement.innerHTML = result;
   }
 }
