@@ -13,21 +13,19 @@ export class ImageClassifier implements IImageClassifier {
   async load(): Promise<void> {
     const t00 = now();
 
-    // TensorFlow.js のセットアップを行う
-    await tf.ready();
-    console.info("tfjs backend=", tf.getBackend());
-
     // MobileNetV1 モデルのセットアップを行う
     this.mobilenet = await tf.loadGraphModel(
       '/models/mobilenet/web/model.json',
     )
 
     // warm-up する
-    await this.mobilenet.predict(tf.zeros([1, 224, 224, 3]));
+    const resultTf = this.mobilenet.predict(tf.zeros([1, 224, 224, 3])) as tf.Tensor;
+    resultTf.dataSync();
+    resultTf.dispose();
 
     const t01 = now();
 
-    console.info("AI models initialized. Elapsed msec:", t01 - t00);
+    console.info("MobileNetV1 initialized. Elapsed:", t01 - t00, "msec");
   }
 
   async classify(input: ImageData): Promise<ImageClassifierOutput> {
@@ -42,12 +40,12 @@ export class ImageClassifier implements IImageClassifier {
     });
 
     // 推論を行い、確率ベクトル [1, 1000] を取得する
-    const resultTf = await this.mobilenet.predict(inputTf) as tf.Tensor;
+    const resultTf = this.mobilenet.predict(inputTf) as tf.Tensor;
 
     // 最大確率をもつラベルIDを取得する
     const argmaxTf = tf.tidy(() => resultTf.squeeze().argMax());
     
-    // 実際の値を同期取得する
+    // スコア値を取得する
     const classId = argmaxTf.dataSync()[0];
     const score = resultTf.dataSync()[classId];
 
@@ -57,7 +55,7 @@ export class ImageClassifier implements IImageClassifier {
     argmaxTf.dispose();
 
     const t01 = now();
-    console.info("Inference done. Elapsed msec: ", t01 - t00);
+    console.info("Inference done. Elapsed:", t01 - t00, "msec");
     return { classId, score };
   }
 }
