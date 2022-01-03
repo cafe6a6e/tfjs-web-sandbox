@@ -1,12 +1,12 @@
-import { injectable } from "inversify";
-import { dom2ImageData } from "../../../../util/file-converter";
-import { IndexPresenter } from "../../../presenter/index/IndexPresenter";
-import { IIndexView } from "../IIndexView";
+import {injectable} from 'inversify';
+import {dom2ImageData} from '../../../../util/file-converter';
+import {IndexPresenter} from '../../../presenter/index/IndexPresenter';
+import {IIndexView} from '../IIndexView';
 
-const LOADING_ELEMENT_ID = "tws-loader";
-const INPUT_IMAGE_FILE_ELEMENT_ID = "tws-file";
-const INPUT_IMAGE_ELEMENT_ID = "tws-image";
-const RESULT_DIV_ELEMENT_ID = "tws-result";
+const LOADING_ELEMENT_ID = 'tws-loader';
+const INPUT_IMAGE_FILE_ELEMENT_ID = 'tws-file';
+const INPUT_IMAGE_ELEMENT_ID = 'tws-image';
+const RESULT_DIV_ELEMENT_ID = 'tws-result';
 
 @injectable()
 export class IndexView implements IIndexView {
@@ -23,19 +23,19 @@ export class IndexView implements IIndexView {
   }
 
   constructor() {
-    this.bindHtml()
+    this.bindHtml();
   }
 
   private bindHtml(): void {
     // file input element
     this.fileInputElement = document.getElementById(INPUT_IMAGE_FILE_ELEMENT_ID) as HTMLInputElement;
-    this.fileInputElement.addEventListener("change", async () => {
+    this.fileInputElement.addEventListener('change', async () => {
       await this.onInputFileChange();
     });
 
     // input image element
     this.inputImageElement = document.getElementById(INPUT_IMAGE_ELEMENT_ID) as HTMLImageElement;
-    this.inputImageElement.addEventListener("load", async () => {
+    this.inputImageElement.addEventListener('load', async () => {
       await this.onInputImageLoaded();
     });
 
@@ -55,7 +55,7 @@ export class IndexView implements IIndexView {
     const targetFile = files[0];
 
     if (!/\.(jpe?g|png|gif)$/i.test(targetFile.name)) {
-      console.warn("unsupported file type:", targetFile.name);
+      console.warn('unsupported file type:', targetFile.name);
       return false;
     }
 
@@ -72,10 +72,10 @@ export class IndexView implements IIndexView {
   showLoading(toggle: boolean): void {
     if (toggle) {
       // show
-      this.loadingElement.style.visibility = "visible";
+      this.loadingElement.style.visibility = 'visible';
     } else {
       // hide
-      this.loadingElement.style.visibility = "hidden";
+      this.loadingElement.style.visibility = 'hidden';
     }
   }
 
