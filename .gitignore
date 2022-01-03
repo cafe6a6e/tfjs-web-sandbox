@@ -1,3 +1,4 @@
 www/index.js
+www/worker.js
 www/models
 node_modules

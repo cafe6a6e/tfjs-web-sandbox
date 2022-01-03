@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild --bundle ./src/index.ts --outfile=./www/index.js",
+    "build": "yarn build:main && yarn build:worker",
+    "build:main": "esbuild --bundle ./src/index.ts --outfile=./www/index.js",
+    "build:worker": "esbuild --bundle ./src/worker.ts --outfile=./www/worker.js",
     "start": "yarn build --servedir=./www"
   },
   "author": "",
