@@ -1,8 +1,8 @@
-import { inject, injectable } from "inversify";
-import { TYPES } from "../../../config/dependency/types";
-import { IAiLoader } from "../../model/ai-loader/IAiLoader";
-import { IImageClassifier } from "../../model/image-classifier/IImageClassifier";
-import { IIndexView } from "../../view/index/IIndexView";
+import {inject, injectable} from 'inversify';
+import {TYPES} from '../../../config/dependency/types';
+import {IAiLoader} from '../../model/ai-loader/IAiLoader';
+import {IImageClassifier} from '../../model/image-classifier/IImageClassifier';
+import {IIndexView} from '../../view/index/IIndexView';
 
 @injectable()
 export class IndexPresenter {
