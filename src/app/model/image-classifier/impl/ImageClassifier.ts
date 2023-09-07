@@ -8,14 +8,28 @@ const now = () => new Date().getTime();
 @injectable()
 export class ImageClassifier implements IImageClassifier {
   private mobilenet!: tf.GraphModel;
+  modelName = 'mobilenet_1.0.0';
 
   async load(): Promise<void> {
     const t00 = now();
 
     // MobileNetV1 モデルのセットアップを行う
-    this.mobilenet = await tf.loadGraphModel(
-        '/models/mobilenet/web/model.json',
-    );
+    const localModels = await tf.io.listModels();
+    const idbModelUrl = `indexeddb://${this.modelName}`;
+    const webModelUrl = `/models/${this.modelName}/web/model.json`;
+
+    // indexedDBにモデルが保存されていれば、indexedDBから読み込む。
+    // そうでなければ webモデルを読み込み、indexcedDBに保存する。
+    if (idbModelUrl in localModels) {
+      this.mobilenet = await tf.loadGraphModel(idbModelUrl);
+      console.info('model loaded from indexedDB:', idbModelUrl)
+    } else {
+      this.mobilenet = await tf.loadGraphModel(webModelUrl);
+      console.info('web model loaded:', webModelUrl)
+
+      await this.mobilenet.save(idbModelUrl);
+      console.info('model saved in indexedDB:', idbModelUrl)
+    }
 
     // warm-up する
     const resultTf = this.mobilenet.predict(tf.zeros([1, 224, 224, 3])) as tf.Tensor;
