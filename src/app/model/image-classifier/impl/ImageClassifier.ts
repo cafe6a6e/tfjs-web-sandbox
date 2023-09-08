@@ -19,7 +19,7 @@ export class ImageClassifier implements IImageClassifier {
     const webModelUrl = `/models/${this.modelName}/web/model.json`;
 
     // indexedDBにモデルが保存されていれば、indexedDBから読み込む。
-    // そうでなければ webモデルを読み込み、indexcedDBに保存する。
+    // そうでなければ webモデルを読み込み、indexedDBに保存する。
     if (idbModelUrl in localModels) {
       this.mobilenet = await tf.loadGraphModel(idbModelUrl);
       console.info('model loaded from indexedDB:', idbModelUrl)

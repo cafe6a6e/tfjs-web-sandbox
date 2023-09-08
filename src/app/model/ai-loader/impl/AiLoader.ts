@@ -3,7 +3,7 @@ import {IAiLoader} from '../IAiLoader';
 import * as tf from '@tensorflow/tfjs';
 import {IImageClassifier} from '../../image-classifier/IImageClassifier';
 import {TYPES} from '../../../../config/dependency/types';
-import {requiredModels} from '../../../../config/required-models';
+import {REQUIRED_MODELS} from '../../../../config/required-models';
 
 
 const now = () => new Date().getTime();
@@ -24,7 +24,7 @@ export class AiLoader implements IAiLoader {
 
     // 不必要なモデルを IndexedDB から削除する
     const localModels = await tf.io.listModels();
-    const requiredIdbModelUrl = requiredModels.map(modelName => `indexeddb://${modelName}`);
+    const requiredIdbModelUrl = REQUIRED_MODELS.map(modelName => `indexeddb://${modelName}`);
     for (const modelUrl of Object.keys(localModels)) {
       if (requiredIdbModelUrl.includes(modelUrl)) continue;
       await tf.io.removeModel(modelUrl);
